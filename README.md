@@ -18,3 +18,7 @@ Our chosen dataset is the Heart Disease Risk Dataset.
 
 ### Research Questions
 
+## The Repository
+
+- Data was gathered through the UCIML repo, which has a handy python package. See `data.py` for the initial download of data, which saves the data in `data.csv`.
+- Next, data is imported to R through `data_import_viz.R`.
