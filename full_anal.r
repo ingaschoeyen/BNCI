@@ -2,6 +2,7 @@ library(lavaan)
 library(dagitty)
 library(tidyverse)
 library(ggdag)
+library(ggplot2)
 
 data <- read_csv("data.csv")
 # not specifying column data types here, because:
@@ -23,16 +24,29 @@ data <- data |>
 # clean data
 
 # get measures of data distribution
-
+summary(data)
 
 # make descriptive plots
 
+# histograms for continuous variables
 
+# violin plots for continuous variables
+
+# bar plots for categorical variables
 
 # construct the DAG
 
+model1 <- '
+# latent variables
+
+# regressions
+
+# residual covariances
+'
 
 # fit the model
+fit <- sem(model1, data = data)
 
+summary(fit)
 
 # DO-operator analysis
