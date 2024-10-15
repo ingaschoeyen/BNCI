@@ -12,9 +12,9 @@ The project team is composed of
 
 ## The Project
 
-Using a public dataset, we should think of a causal inference problem for this dataset and execute it using the R toolbox [fill in].
+Using a public dataset, we should think of a causal inference problem for this dataset and execute it using the R toolbox [lavaan](https://www.lavaan.ugent.be/).
 
-Our chosen dataset is the Heart Disease Risk Dataset.
+Our chosen dataset is the [Heart Disease Risk Dataset](https://archive.ics.uci.edu/dataset/45/heart+disease).
 
 ### Research Questions
 
