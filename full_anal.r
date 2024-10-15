@@ -20,5 +20,19 @@ data <- data |>
     thal  = factor(thal)
   )
 
+# clean data
+
+# get measures of data distribution
+
+
 # make descriptive plots
 
+
+
+# construct the DAG
+
+
+# fit the model
+
+
+# DO-operator analysis
