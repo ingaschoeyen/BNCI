@@ -1,0 +1,34 @@
+dag {
+Age [pos="0.344,-0.872"]
+trestbps [pos="-1.149,-0.092"]
+fbs [pos="-1.447,-0.704"]
+cp [pos="0.930,1.418"]
+chol [exposure,pos="-1.458,1.206"]
+Diabetes [latent,pos="-2.097,-0.653"]
+restecg [pos="-0.620,-0.471"]
+exang [pos="1.386,1.133"]
+oldpeak [pos="-0.159,-0.879"]
+num [outcome,pos="0.909,0.287"]
+thalach [pos="-0.117,1.381"]
+sex [pos="0.616,-1.433"]
+thal [pos="0.427,1.221"]
+age -> num
+trestbps -> num
+fbs -> chol
+fbs -> num
+cp -> thalach
+cp -> thal
+chol -> trestbps
+chol -> Diabetes
+chol -> num
+Diabetes -> fbs
+restecg -> oldpeak
+restecg -> num
+restecg -> thalach
+exang -> cp
+num -> cp
+num -> exang
+num -> thalach
+num -> thal
+sex -> num
+}
