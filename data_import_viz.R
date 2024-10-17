@@ -20,3 +20,8 @@ data <- data |>
     thal  = factor(thal)
   )
 
+# Visualize dag from file
+filepath = "DAGcode.txt"
+dagtxt <- read_file(filepath)
+dag <- dagitty(dagtxt)
+ggdag(dag)
