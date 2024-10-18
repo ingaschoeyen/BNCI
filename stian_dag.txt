@@ -4,33 +4,33 @@ ca [pos="-1.341,0.738"]
 chol [exposure,pos="-0.603,-1.099"]
 cp [pos="-1.033,-0.515"]
 exang [pos="-0.325,0.824"]
-exstd [pos="0.483,0.691"]
+oldpeak [pos="0.483,0.691"]
 fbs [pos="-0.655,-1.557"]
-hdd [outcome,pos="-0.417,0.209"]
-rbp [pos="-0.280,-0.633"]
-recg [pos="0.257,-0.973"]
-rhr [pos="0.157,-0.261"]
+num [outcome,pos="-0.417,0.209"]
+trestbps [pos="-0.280,-0.633"]
+restecg [pos="0.257,-0.973"]
+thalach [pos="0.157,-0.261"]
 sex [pos="1.337,-1.662"]
 slope [pos="0.578,0.354"]
 thal [pos="-0.844,0.961"]
 age -> chol
 age -> cp
-age -> hdd [pos="-1.686,0.158"]
+age -> num [pos="-1.686,0.158"]
 chol -> cp
-chol -> rbp
-cp -> hdd
+chol -> trestbps
+cp -> num
 fbs -> chol
-hdd -> ca
-hdd -> exang
-hdd -> exstd
-hdd -> slope
-hdd -> thal
-rbp -> cp
-rbp -> recg
-rbp -> rhr
-rhr -> ca [pos="-0.630,-0.163"]
-rhr -> recg
+num -> ca
+num -> exang
+num -> oldpeak
+num -> slope
+num -> thal
+trestbps -> cp
+trestbps -> restecg
+trestbps -> thalach
+thalach -> ca [pos="-0.630,-0.163"]
+thalach -> restecg
 sex -> chol
-sex -> hdd [pos="1.386,-0.347"]
-sex -> rhr
+sex -> num [pos="1.386,-0.347"]
+sex -> thalach
 }

@@ -1,18 +1,23 @@
 library(lavaan)
 library(dagitty)
 library(ggdag)
+library(ggplot2)
 library(tidyverse)
 
 # Setup functions -----------------------------------------------------------------------------
 load_dag <- function(filepath) {
   dagtxt <- read_file(filepath)
   dag <- dagitty(dagtxt)
-  ggdag(dag)
-  
   return(dag)
 }
 
-
+local_tests_utility <- function(dag, M, data) {
+  # local chi-square tests
+  t <- localTests(x=dag, sample.cov=M, sample.nobs=nrow(data))
+  plotLocalTestResults(t)
+  
+  return(t)
+}
 
 # Load Data -----------------------------------------------------------------------------------
 data <- read.csv("data.csv")
@@ -54,8 +59,13 @@ data <- data |>
 M <- lavCor(data)
 varTable(data)
 
-# local chi-square tests
-t <- localTests(x=dag0, sample.cov=M, sample.nobs=nrow(d))
-plotLocalTestResults(t)
+# Run tests -----------------------------------------------------------------------------------
+dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt")
+daglist <- c()
 
-
+for (dagpath in dagpaths) {
+  dag <- load_dag(dagpath)
+  print(ggdag(dag))
+  daglist <- c(daglist, dag)
+  local_tests_utility(dag, M, data)
+}
