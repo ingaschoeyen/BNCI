@@ -1,31 +1,31 @@
 dag {
-Age [pos="0.303,-0.865"]
-BPrest [pos="-0.325,0.704"]
-BSfast [pos="-1.653,-0.461"]
-CPtype [pos="0.931,0.704"]
-Chol [exposure,pos="-1.090,0.168"]
-ECGrest [pos="-0.882,0.697"]
-ExIndAng [pos="1.367,0.704"]
-ExIndSTDep [pos="-1.430,0.711"]
-HDDiag [outcome,pos="0.638,-0.315"]
-HRmax [pos="0.050,0.717"]
-Sex [pos="1.073,-0.878"]
-Thal [pos="0.491,0.737"]
-ca [pos="-2.048,0.247"]
-slope [pos="-1.815,0.744"]
-Age -> HDDiag
-BPrest -> ECGrest
-BSfast -> Chol
-CPtype -> HRmax [pos="0.526,1.386"]
-CPtype -> Thal
-Chol -> HDDiag
-ECGrest -> ExIndSTDep
-ExIndAng -> CPtype
-HDDiag -> BPrest
-HDDiag -> CPtype
-HDDiag -> ExIndAng
-HDDiag -> HRmax
-HDDiag -> Thal
-HRmax -> ECGrest [pos="-0.376,1.306"]
-Sex -> HDDiag
+AGE [pos="0.303,-0.865"]
+BPr [pos="-0.325,0.704"]
+FBS [pos="-1.653,-0.461"]
+CP [pos="0.931,0.704"]
+Cho [exposure,pos="-1.090,0.168"]
+ECr [pos="-0.882,0.697"]
+ANe [pos="1.367,0.704"]
+STd [pos="-1.430,0.711"]
+HD [outcome,pos="0.638,-0.315"]
+HRm [pos="0.050,0.717"]
+SEX [pos="1.073,-0.878"]
+Tha [pos="0.491,0.737"]
+CA [pos="-2.048,0.247"]
+STs [pos="-1.815,0.744"]
+AGE -> HD
+BPr -> ECr
+FBS -> Cho
+CP -> HRm [pos="0.526,1.386"]
+CP -> Tha
+Cho -> HD
+ECr -> STd
+ANe -> CP
+HD -> BPr
+HD -> CP
+HD -> ANe
+HD -> HRm
+HD -> Tha
+HRm -> ECr [pos="-0.376,1.306"]
+SEX -> HD
 }
