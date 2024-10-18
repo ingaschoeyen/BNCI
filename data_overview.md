@@ -4,7 +4,7 @@ insert table below
 
 | Variable Name | Type | Range | Description | Acronym
 | --- | --- | --- | --- | --- |
-| `subject_id` | Integer | 0-303 | ID of the subject | 'ID' |
+| 'subject_id' | Integer | 0-303 | ID of the subject | 'ID' |
 | 'age'| Integer  |   |  Age of the Subject | 'AGE' |
 |  'sex' | Categorical  | [0,1]  |  Sex of the Subject | 'SEX' |
 | 'cp' | Categorical  | [1,2,3,4]  | Chest Pain Type  | 'CP' |
