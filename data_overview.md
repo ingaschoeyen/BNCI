@@ -12,7 +12,7 @@ insert table below
 |  'chol' | Integer  |   | serum cholestoral  | 'Cho' |
 |  'fbs' | Categorical  | [0,1]  |  fasting blood sugar | 'FBS' |
 |  'restecg' | Categorical  | [0,1]  |   | 'ECr' |
-| 'thalach'  | Integer  |   |  maximum heart rate achieved |'HR'  |
+| 'thalach'  | Integer  |   |  maximum heart rate achieved |'HRm'  |
 | 'exang'  | Categorical  | [0,1]  |  exercise induced angina | 'ANe'|
 | 'oldpeak'  | Float  |   |  ST depression induced by exercise relative to rest | 'STd' |
 | 'slope' | Categorical | [1,2,3] | Slope of the ST curve | 'STs' |
