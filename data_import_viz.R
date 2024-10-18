@@ -30,7 +30,7 @@ data <- read.csv("data.csv")
 # drop NA
 data <- data[complete.cases(data),]
 # drop index
-data <- data[-1, ]
+data <- data[,-1]
 
 # changing categorical variables to R factors
 # all ordered for now, subject to change
@@ -62,14 +62,15 @@ data <- data |>
 
 print(summary(data))
 # change var names to match DAG
-colnames(data) <- c("ID", "AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe", "STd", "STs", "Tha", "CA","HD")
+colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe", "STd", "STs", "Tha", "CA","HD")
 
 # Getting lavaan correlation matrix
 M <- lavCor(data)
 print(varTable(data))
 
 # Run tests -----------------------------------------------------------------------------------
-dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt")
+# dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt")
+dagpaths = c("stian_dag.txt")
 daglist <- c()
 i <- 1
 
