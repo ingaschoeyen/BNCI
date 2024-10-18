@@ -13,9 +13,9 @@ insert table below
 |  'fbs' | Categorical  | [0,1]  |  fasting blood sugar | 'FBS' |
 |  'restecg' | Categorical  | [0,1]  |   | 'ECr' |
 | 'thalach'  | Integer  |   |  maximum heart rate achieved |'HR'  |
-| 'thal' | Categorical  | [3,6,7]  |  | 'Tha' |
-| 'exang'  | Categorical  | [0,1]  |  exercise induced angina | 'ANe
+| 'exang'  | Categorical  | [0,1]  |  exercise induced angina | 'ANe'|
 | 'oldpeak'  | Float  |   |  ST depression induced by exercise relative to rest | 'STd' |
-| 'Diabetes'  | Categorical  | [0,1]  |  |  'Dia' |
-| 'BSfast' | Categorical  | [0,1]  |  |  'BSf' |
+| 'slope' | Categorical | [1,2,3] | Slope of the ST curve | 'STs' |
+| 'ca' | Integer | [0,1,2,3] | Number of Blood Vessels counted | 'CA' |
+| 'thal' | Categorical  | [3,6,7]  |  | 'Tha' |
 | 'num'  | Categorical  | [0,1]  |  |  'HD' |
