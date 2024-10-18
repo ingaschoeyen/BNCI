@@ -9,13 +9,13 @@ insert table below
 |  'sex' | Categorical  | [0,1]  |  Sex of the Subject | 'SEX' |
 | 'cp' | Categorical  | [1,2,3,4]  | Chest Pain Type  | 'CP' |
 | 'trestbps'  |  Integer |  94-200 |  resting blood pressure | 'BPr' |
-|  'chol' | Integer  | 126-564  | serum cholestoral  | 'Cho' |
+|  'chol' | Integer  | 126-564  | serum cholestoral  | 'Chol' |
 |  'fbs' | Categorical  | [0,1]  |  fasting blood sugar > 120mg/dl| 'FBS' |
-|  'restecg' | Categorical  | [0,1]  | Categorical Outcome of resting ECG  | 'ECr' |
-| 'thalach'  | Integer  |  71-202 |  maximum heart rate achieved during Thalach test|'HRm'  |
-| 'exang'  | Categorical  | [0,1]  |  exercise induced angina | 'ANe'|
+|  'restecg' | Categorical  | [0,1]  | Categorical Outcome of resting ECG  | 'ECGr' |
+| 'thalach'  | Integer  |  71-202 |  maximum heart rate achieved during Thalach test|'HRmax'  |
+| 'exang'  | Categorical  | [0,1]  |  exercise induced angina | 'ANGe'|
 | 'oldpeak'  | Float  |  0.0-6.2 |  ST depression induced by exercise relative to rest | 'STd' |
 | 'slope' | Categorical | [1,2,3] | Slope of the ST curve | 'STs' |
 | 'ca' | Integer | [0,1,2,3] | Number of Blood Vessels counted | 'CA' |
-| 'thal' | Categorical  | [3,6,7]  | Categorical Outcome of Thalach Test | 'Tha' |
+| 'thal' | Categorical  | [3,6,7]  | Categorical Outcome of Thalach Test | 'Thal' |
 | 'num'  | Categorical  | [0,1]  | Diagnosis of Heart Disease |  'HD' |
