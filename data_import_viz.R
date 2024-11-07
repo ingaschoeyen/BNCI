@@ -21,6 +21,15 @@ local_tests_utility <- function(dag, M, data) {
   return(list(test = t, fig = ttest_fig))
 }
 
+test_independences <- function(dagpath) {
+  dag <- load_dag(dagpath)
+  dag_fig <- ggdag(dag)
+  ggsave(filename = paste("dag_plot", i, ".png", sep = "_"), plot = dag_fig, path = "./plots/", width = 6, height = 4, units = "in", dpi = 300)
+  # daglist <- c(daglist, dag)
+  ttest_results <- local_tests_utility(dag, M, data)
+  i <- i + 1
+}
+
 # Load Data -----------------------------------------------------------------------------------
 data <- read.csv("data.csv")
 # not specifying column data types here, because:
@@ -69,16 +78,11 @@ M <- lavCor(data)
 print(varTable(data))
 
 # Run tests -----------------------------------------------------------------------------------
-# dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt")
-dagpaths = c("stian_dag.txt")
+dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt", "dag_new.txt")
+# dagpaths = c("stian_dag.txt")
 daglist <- c()
 i <- 1
 
 for (dagpath in dagpaths) {
-  dag <- load_dag(dagpath)
-  dag_fig <- ggdag(dag)
-  ggsave(filename = paste("dag_plot", i, ".png", sep = "_"), plot = dag_fig, path = "./plots/", width = 6, height = 4, units = "in", dpi = 300)
-  daglist <- c(daglist, dag)
-  ttest_results <- local_tests_utility(dag, M, data)
-  i <- i + 1
+  test_independences(dagpath)
 }
