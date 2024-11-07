@@ -71,6 +71,8 @@ data <- data |>
 
 print(summary(data))
 # change var names to match DAG
+# old colnames
+# c <- c("Age", "Sex", "CPtype", "BPrest", "Chol", "BSfast", "ECGrest", "HRmax", "ExIndAng" , "ExIndStDep", "slope", "Thal", "ca", "HDDiag")
 colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe", "STd", "STs", "Tha", "CA","HD")
 
 # Getting lavaan correlation matrix
