@@ -3,8 +3,8 @@ library(dagitty)
 library(ggdag)
 library(ggplot2)
 library(tidyverse)
-
-
+library(fastDummies)
+library(CCP)
 
 # Setup functions -----------------------------------------------------------------------------
 load_dag <- function(filepath) {
@@ -21,13 +21,13 @@ local_tests_utility <- function(dag, M, data) {
   return(list(test = t, fig = ttest_fig))
 }
 
-test_independences <- function(dagpath) {
+test_independences <- function(dagpath, i) {
   dag <- load_dag(dagpath)
   dag_fig <- ggdag(dag)
   ggsave(filename = paste("dag_plot", i, ".png", sep = "_"), plot = dag_fig, path = "./plots/", width = 6, height = 4, units = "in", dpi = 300)
   # daglist <- c(daglist, dag)
   ttest_results <- local_tests_utility(dag, M, data)
-  i <- i + 1
+  return(ttest_results)
 }
 
 # Load Data -----------------------------------------------------------------------------------
@@ -45,17 +45,22 @@ data <- data[,-1]
 # all ordered for now, subject to change
 data <- data |>
   mutate(
-    sex     = factor(sex, ordered=TRUE),
-    cp      = factor(cp, ordered=TRUE) ,
-    fbs     = factor(fbs, ordered=TRUE),
+    sex     = as.numeric(factor(sex, ordered=TRUE)),
+    cp      = as.numeric(factor(ifelse(cp[] > 1, 1, 0))),
+    fbs     = as.numeric(factor(fbs, ordered=TRUE)),
     restecg = factor(restecg, ordered=TRUE),
-    exang   = factor(exang, ordered=TRUE),
-    slope   = factor(slope, ordered=TRUE),
-    thal    = factor(thal, ordered=TRUE),
-    num     = factor(num, ordered = TRUE)
+    exang   = as.numeric(factor(exang, ordered=TRUE)),
+    slope   = as.numeric(factor(ifelse(slope[] > 1, 1, 0))),
+    ca      = factor(ca, ordered = TRUE),
+    num     = as.numeric(factor(num, ordered = TRUE)),
   )
 
-print("test 4.1")
+data$thal <- ordered(case_match(
+  data$thal,
+  3 ~ 1,
+  7 ~ 2,
+  6 ~ 3
+  ))
 
 # scale appropriate variables for comparisons
 data <- data |>
@@ -65,26 +70,31 @@ data <- data |>
     chol     = scale(chol),
     thalach  = scale(thalach),
     oldpeak  = scale(oldpeak),
-    ca       = scale(ca)
-  )
-
+)
 
 print(summary(data))
 # change var names to match DAG
 # old colnames
 # c <- c("Age", "Sex", "CPtype", "BPrest", "Chol", "BSfast", "ECGrest", "HRmax", "ExIndAng" , "ExIndStDep", "slope", "Thal", "ca", "HDDiag")
-colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe", "STd", "STs", "Tha", "CA","HD")
+colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe", "STd", "STs","CA", "Tha", "HD")
 
-# Getting lavaan correlation matrix
+
+# Getting lavaan polychoric correlation matrix
 M <- lavCor(data)
 print(varTable(data))
 
 # Run tests -----------------------------------------------------------------------------------
-dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt", "dag_new.txt")
+dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt")
 # dagpaths = c("stian_dag.txt")
 daglist <- c()
-i <- 1
 
+i <- 0
 for (dagpath in dagpaths) {
-  test_independences(dagpath)
+  daglist <- c(daglist, test_independences(dagpath, i))
+  i <- i+1
 }
+
+# Fit model ------------------------------------------------------------------------------------
+# fit model (after running tests!)
+g <- 
+fit <- sem(toString())
