@@ -1,48 +1,45 @@
 dag {
 bb="-5.127,-5.054,4.611,5.194"
-AGE [pos="-4.316,0.836"]
-BPr [pos="-1.030,-2.817"]
-FBS [pos="-2.734,0.060"]
-CP [pos="1.060,-1.549"]
-Cho [exposure,pos="-3.116,2.766"]
-Diabetes [pos="-1.622,3.058"]
-ECr [pos="0.553,-4.200"]
-ANe [pos="3.799,-1.188"]
-ExIndSTDep [pos="2.087,-0.390"]
+AGE [pos="-4.136,-2.303"]
+ANe [pos="-0.120,3.735"]
+BPr [pos="-0.409,-4.611"]
+CA [pos="2.904,-1.416"]
+CP [pos="1.725,3.661"]
+Cho [exposure,pos="-1.852,0.855"]
+ECr [pos="3.657,-4.519"]
+FBS [pos="-2.768,-2.801"]
 HD [outcome,pos="-0.110,0.573"]
-HRm [pos="-2.424,-2.803"]
-SEX [pos="-0.557,4.340"]
-Tha [pos="3.394,0.409"]
-CA [pos="2.102,-2.488"]
-STs [pos="2.601,2.795"]
+HRm [pos="2.302,-3.761"]
+SEX [pos="-4.349,-0.899"]
+STd [pos="3.707,1.926"]
+STs [pos="3.105,3.329"]
+Tha [pos="4.222,0.042"]
 AGE -> Cho
 AGE -> HD
-BPr -> ECr
+ANe -> CP
 BPr -> CA
-FBS -> BPr
-FBS -> HD
-FBS -> HRm
+BPr -> ECr
+CA -> ANe
+CA -> Tha
 CP -> HRm
 CP -> Tha
 Cho -> FBS
 Cho -> HD
-Diabetes -> FBS
-Diabetes -> Cho
-Diabetes -> HD
-ECr -> ExIndSTDep
-ANe -> CP
-ExIndSTDep -> STs
-HD -> BPr
-HD -> CP
+ECr -> STd
+FBS -> BPr
+FBS -> HD
+FBS -> HRm
 HD -> ANe
-HD -> ExIndSTDep
-HD -> HRm
-HD -> Tha
+HD -> BPr
 HD -> CA
+HD -> CP
+HD -> HRm
+HD -> STd
 HD -> STs
+HD -> Tha
 HRm -> ECr
 SEX -> Cho
 SEX -> HD
-CA -> ANe
-CA -> Tha
+STd -> STs
+STd -> Tha
 }
