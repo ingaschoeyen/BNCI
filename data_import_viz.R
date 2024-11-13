@@ -3,8 +3,8 @@ library(dagitty)
 library(ggdag)
 library(ggplot2)
 library(tidyverse)
-library(fastDummies)
-library(CCP)
+# library(fastDummies)
+# library(CCP)
 
 # Setup functions -----------------------------------------------------------------------------
 load_dag <- function(filepath) {
@@ -12,7 +12,6 @@ load_dag <- function(filepath) {
   dag <- dagitty(dagtxt)
   return(dag)
 }
-
 
 local_tests_utility <- function(dag, M, data) {
   # local chi-square tests
@@ -28,6 +27,13 @@ test_independences <- function(dagpath, i) {
   # daglist <- c(daglist, dag)
   ttest_results <- local_tests_utility(dag, M, data)
   return(ttest_results)
+}
+
+plot_fit <- function(dag, fit) {
+  cg <- coordinates(g)
+  fg <- lavaanToGraph(fit, digits=2)
+  coordinates(fg) <- cg
+  plot(fg, show.coefficients=TRUE)
 }
 
 # Load Data -----------------------------------------------------------------------------------
@@ -96,5 +102,6 @@ for (dagpath in dagpaths) {
 
 # Fit model ------------------------------------------------------------------------------------
 # fit model (after running tests!)
-g <- 
-fit <- sem(toString())
+g <- load_dag()
+fit <- sem(toString(g, "lavaan"), sample.cov = M, sample.nobs = nrow(data))
+plot_fit(dag, fit)
