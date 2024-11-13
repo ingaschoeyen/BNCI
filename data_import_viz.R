@@ -16,8 +16,8 @@ load_dag <- function(filepath) {
 local_tests_utility <- function(dag, M, data) {
   # local chi-square tests
   t <- localTests(x = dag, sample.cov = M, sample.nobs = nrow(data))
-  ttest_fig <- plotLocalTestResults(t)
-  return(list(test = t, fig = ttest_fig))
+  plotLocalTestResults(t)
+  return(t)
 }
 
 test_independences <- function(dagpath, i) {
@@ -34,6 +34,12 @@ plot_fit <- function(dag, fit) {
   fg <- lavaanToGraph(fit, digits=2)
   coordinates(fg) <- cg
   plot(fg, show.coefficients=TRUE)
+}
+
+fit_then_plot <- function(dag, M, data) {
+  fit <- sem(toString(g, "lavaan"), sample.cov = M, sample.nobs = nrow(data))
+  plot_fit(dag, fit)
+  return(fit)
 }
 
 # Load Data -----------------------------------------------------------------------------------
@@ -89,17 +95,33 @@ colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe"
 M <- lavCor(data)
 print(varTable(data))
 
-# Run tests -----------------------------------------------------------------------------------
-dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt")
-# dagpaths = c("stian_dag.txt")
-daglist <- c()
+dagpath <- "my_dag.txt"
+g <- load_dag(dagpath)
 
-for (i in seq_along(dagpaths)) {
-  daglist <- c(daglist, test_independences(dagpaths[i], i))
-}
+# Fit model
+fit <- fit_then_plot(g, M, data)
 
-# Fit model ------------------------------------------------------------------------------------
+# Run conditional independence assumption tests -----------------------------------------------------------------------------------
+
+test <- local_tests_utility(g, M, data)
+ests <- test[ do.call(order, abs(test)), ]
+imp_violations <- tail(ests, 8)
+imp_violations
+
+# the important violations mostly seem to have to do with SEX and THA, so we add a direct path here
+dagpath <- "my_dag_tested.txt"
+g <- load_dag(dagpath)
+
+# re-run conditional independence assumptions tests
+test <- local_tests_utility(g, M, data)
+ests <- test[ do.call(order, abs(test)), ]
+imp_violations <- tail(ests, 8)
+imp_violations
+
+
+
+# Change dag according to results from conditional independences
+
+# Fit new model ------------------------------------------------------------------------------------
 # fit model (after running tests!)
-g <- load_dag()
-fit <- sem(toString(g, "lavaan"), sample.cov = M, sample.nobs = nrow(data))
-plot_fit(dag, fit)
+

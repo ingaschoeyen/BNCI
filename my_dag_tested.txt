@@ -1,0 +1,46 @@
+dag {
+bb="-5.127,-5.054,4.611,5.194"
+AGE [pos="-4.136,-2.303"]
+ANe [pos="-0.120,3.735"]
+BPr [pos="-0.409,-4.611"]
+CA [pos="2.904,-1.416"]
+CP [pos="1.725,3.661"]
+Cho [exposure,pos="-1.852,0.855"]
+ECr [pos="3.657,-4.519"]
+FBS [pos="-2.768,-2.801"]
+HD [outcome,pos="-0.110,0.573"]
+HRm [pos="2.302,-3.761"]
+SEX [pos="-4.349,-0.899"]
+STd [pos="3.707,1.926"]
+STs [pos="3.105,3.329"]
+Tha [pos="4.222,0.042"]
+AGE -> Cho
+AGE -> HD
+ANe -> CP
+BPr -> CA
+BPr -> ECr
+CA -> ANe
+CA -> Tha
+CP -> HRm
+CP -> Tha
+Cho -> FBS
+Cho -> HD
+ECr -> STd
+FBS -> BPr
+FBS -> HD
+FBS -> HRm
+HD -> ANe
+HD -> BPr
+HD -> CA
+HD -> CP
+HD -> HRm
+HD -> STd
+HD -> STs
+HD -> Tha
+HRm -> ECr
+SEX -> Cho
+SEX -> HD
+SEX -> Tha
+STd -> STs
+STd -> Tha
+}
