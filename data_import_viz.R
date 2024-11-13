@@ -94,10 +94,8 @@ dagpaths = c("stian_dag.txt", "DAGcode_old_var_names.txt")
 # dagpaths = c("stian_dag.txt")
 daglist <- c()
 
-i <- 0
-for (dagpath in dagpaths) {
-  daglist <- c(daglist, test_independences(dagpath, i))
-  i <- i+1
+for (i in seq_along(dagpaths)) {
+  daglist <- c(daglist, test_independences(dagpaths[i], i))
 }
 
 # Fit model ------------------------------------------------------------------------------------
