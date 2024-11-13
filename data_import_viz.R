@@ -3,6 +3,7 @@ library(dagitty)
 library(ggdag)
 library(ggplot2)
 library(tidyverse)
+library(lavaanExtra)
 # library(fastDummies)
 # library(CCP)
 
@@ -118,10 +119,41 @@ ests <- test[ do.call(order, abs(test)), ]
 imp_violations <- tail(ests, 8)
 imp_violations
 
+# now, there seems to be some issues relating to Age and CA. Here, we actually have two possibilities.
+# either add a direct arrow Age -> CA, or an arrow Cho -> CA. I will try both.
 
+dagpath <- "my_experimental_dag_1.txt"
+g <- load_dag(dagpath)
+test <- local_tests_utility(g, M, data)
 
-# Change dag according to results from conditional independences
+dagpath <- "my_experimental_dag_2.txt"
+g <- load_dag(dagpath)
+test <- local_tests_utility(g, M, data)
+
+# 1 seems not to have fixed the issue, so we go with 2, which is the one that added the link Age->CA
+
 
 # Fit new model ------------------------------------------------------------------------------------
-# fit model (after running tests!)
+# fit model (after running conditional independence tests!)
+
+dagpath <- "my_experimental_dag_2.txt"
+g <- load_dag(dagpath)
+
+# Fit model
+fit <- fit_then_plot(g, M, data)
+fg <- lavaanToGraph(fit)
+
+coeffs <- lavaan_reg(fit)
+
+# remove any that are larger than 0.01, in the b column
+rems <- subset(coeffs, b<0.01)
+rems
+
+# Now I go to dagitty and make this change in our graph, which results in:
+dagpath <- "my_pruned_dag.txt"
+g <- load_dag(dagpath)
+# Fit model
+fit <- fit_then_plot(g, M, data)
+# do independence tests
+test <- local_tests_utility(g, M, data)
 
