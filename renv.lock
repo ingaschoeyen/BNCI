@@ -919,6 +919,19 @@
       ],
       "Hash": "c3b7d801d722e26e4cd888e042bf9af5"
     },
+    "insight": {
+      "Package": "insight",
+      "Version": "0.20.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "methods",
+        "stats",
+        "utils"
+      ],
+      "Hash": "856341c90b80b78090cf2d68862102bd"
+    },
     "isoband": {
       "Package": "isoband",
       "Version": "0.2.7",
@@ -1011,6 +1024,18 @@
         "utils"
       ],
       "Hash": "78573997f3acd282f34c626ffb6a906d"
+    },
+    "lavaanExtra": {
+      "Package": "lavaanExtra",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "insight",
+        "lavaan"
+      ],
+      "Hash": "e22b0b0365679db0ebc674741c6bdbf8"
     },
     "lifecycle": {
       "Package": "lifecycle",

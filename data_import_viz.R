@@ -58,14 +58,14 @@ data <- data[,-1]
 # all ordered for now, subject to change
 data <- data |>
   mutate(
-    sex     = as.numeric(factor(sex, ordered=TRUE)),
-    cp      = as.numeric(factor(ifelse(cp[] > 1, 1, 0))),
-    fbs     = as.numeric(factor(fbs, ordered=TRUE)),
+    sex     = as.numeric(factor(sex, ordered=TRUE))-1,
+    cp      = as.numeric(factor(ifelse(cp[] > 1, 1, 0)))-1,
+    fbs     = as.numeric(factor(fbs, ordered=TRUE))-1,
     restecg = factor(restecg, ordered=TRUE),
-    exang   = as.numeric(factor(exang, ordered=TRUE)),
-    slope   = as.numeric(factor(ifelse(slope[] > 1, 1, 0))),
+    exang   = as.numeric(factor(exang, ordered=TRUE))-1,
+    slope   = as.numeric(factor(ifelse(slope[] > 1, 1, 0)))-1,
     ca      = factor(ca, ordered = TRUE),
-    num     = as.numeric(factor(num, ordered = TRUE)),
+    num     = as.numeric(factor(num, ordered = TRUE))-1,
   )
 
 data$thal <- ordered(case_match(
