@@ -141,12 +141,9 @@ g <- load_dag(dagpath)
 
 # Fit model
 fit <- fit_then_plot(g, M, data)
-fg <- lavaanToGraph(fit)
-
 coeffs <- lavaan_reg(fit)
-
-# remove any that are larger than 0.01, in the b column
-rems <- subset(coeffs, b<0.01)
+# remove any that are between 0.01 and -0.01, in the b column
+rems <- subset(coeffs, abs(b)<0.01)
 rems
 
 # Now I go to dagitty and make this change in our graph, which results in:

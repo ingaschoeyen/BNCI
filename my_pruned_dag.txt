@@ -14,12 +14,15 @@ SEX [pos="-4.349,-0.899"]
 STd [pos="3.707,1.926"]
 STs [pos="3.105,3.329"]
 Tha [pos="4.222,0.042"]
-AGE -> CA
 AGE -> Cho
 AGE -> HD
+AGE -> CA
 ANe -> CP
+BPr -> CA
 BPr -> ECr
+CA -> ANe
 CA -> Tha
+CP -> HRm
 CP -> Tha
 Cho -> FBS
 Cho -> HD
@@ -30,11 +33,15 @@ HD -> ANe
 HD -> BPr
 HD -> CA
 HD -> CP
+HD -> HRm
 HD -> STd
 HD -> STs
 HD -> Tha
+HRm -> ECr
+SEX -> Cho
 SEX -> HD
 SEX -> Tha
 STd -> STs
 STd -> Tha
 }
+
