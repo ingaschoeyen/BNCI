@@ -70,9 +70,9 @@ data <- data |>
 
 data$thal <- ordered(case_match(
   data$thal,
-  3 ~ 1,
-  7 ~ 2,
-  6 ~ 3
+  3 ~ 0,
+  7 ~ 1,
+  6 ~ 2
   ))
 
 # scale appropriate variables for comparisons
