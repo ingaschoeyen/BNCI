@@ -31,5 +31,12 @@ for var in z.columns:
     print(f"Mean of {var}: {np.mean(z[var])}")
     print(f"Min of {var}: {np.min(z[var])}")
     print(f"Max of {var}: {np.max(z[var])}")
-
+    # remove outliers larger than 3 std
+    data_clean = z[np.abs(z[var]-z[var].mean()) <= (2*z[var].std())]
+    # remove NAN
+    data_clean = data_clean.dropna()
+    print(f"Shape of data_clean: {data_clean.shape}")
 print("Done")
+
+
+data_clean.to_csv("data_clean.csv")

@@ -6,18 +6,53 @@ library(patchwork)
 library(reshape2)
 library(ggcorrplot)
 
-data_path <- 'data.csv'
+
+data_type <- 'data'
+data_path <- paste(data_type,'.csv', sep='')
+
+
+data_raw <- read.csv(data_path)
+data_raw <- data_raw[complete.cases(data_raw),]
+colnames(data_raw) <- c("subject_id", "AGE", "SEX", "CP", "BPr", "Chol", "FBS", "ECGr", "HRm", "ANGe", "STd", "STs","CA", "Thal", "HD")
+
+#------Plot raw values to check for outliers------------------------------------------------------------------
+
+
+df_raw_long <- data_raw %>%
+  pivot_longer(cols = -subject_id, names_to = "variable", values_to = "value")
+
+# Define high-scale and low-scale variable sets
+high_scale_vars <- c("BPr", "Chol", "HRm")  # Variables with larger scales
+non_low <- c("AGE", "BPr", "Chol", "SEX", "HRm") # includes age and sex, since we dont really care about distribution
+low_scale_vars <- setdiff(unique(df_long$variable), non_low)  # The rest
+
+# Plot high-scale variables (left side)
+plot_high_raw <- ggplot(df_raw_long %>% filter(variable %in% high_scale_vars), aes(x = variable, y = value)) +
+  geom_jitter(width = 0.2,height=0, alpha = 0.6) +
+  scale_y_continuous(name = "") +  # Left y-axis label
+  labs(x = NULL, title = "") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+# Plot low-scale variables (right side)
+plot_low_raw <- ggplot(df_raw_long %>% filter(variable %in% low_scale_vars), aes(x = variable, y = value)) +
+  geom_jitter(width = 0.3, height=0.1, alpha = 0.2) +
+  scale_y_continuous(name = "", position = "right") +  
+  labs(x = NULL, title = "") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
+# Combine the plots side by side
+plot_both_raw <- plot_high_raw + plot_low_raw + plot_layout(widths = c(1, 2))
+
+# save the plot
+ggsave(filename = paste(data_type, "_raw_scatter.png"), plot = plot_both_raw, path = "./plots/", width = 8, height = 4, units = "in", dpi = 300)
+
+#------Scale data------------------------------------------------------------------
 
 data <- read.csv(data_path)
-
-
-# drop NA
 data <- data[complete.cases(data),]
-
-
-# plot raw data for checking outliers or impossible cases
-data_raw <- data
-
 data <- data |>
   mutate(
     sex     = as.numeric(factor(sex, ordered=TRUE))-1,
@@ -61,53 +96,23 @@ data <- data |>
     oldpeak  = scale(oldpeak),
 )
 
+
+
 colnames(data) <- c("subject_id", "AGE", "SEX", "CP", "BPr", "Chol", "FBS", "ECGr", "HRm", "ANGe", "STd", "STs","CA", "Thal", "HD")
 
-
-
-df_raw_long <- data_raw %>%
-  pivot_longer(cols = -subject_id, names_to = "variable", values_to = "value")
-
-# Define high-scale and low-scale variable sets
-high_scale_vars <- c("BPr", "Chol", "HRm")  # Variables with larger scales
-non_low <- c("AGE", "BPr", "Chol", "SEX", "HRm") # includes age and sex, since we dont really care about distribution
-low_scale_vars <- setdiff(unique(df_long$variable), non_low)  # The rest
-
-# Plot high-scale variables (left side)
-plot_high <- ggplot(df_raw_long %>% filter(variable %in% high_scale_vars), aes(x = variable, y = value)) +
-  geom_jitter(width = 0.2, alpha = 0.6) +
-  scale_y_continuous(name = "") +  # Left y-axis label
-  labs(x = NULL, title = "") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-# Plot low-scale variables (right side)
-plot_low <- ggplot(df_raw_long %>% filter(variable %in% low_scale_vars), aes(x = variable, y = value)) +
-  geom_jitter(width = 0.3, alpha = 0.2) +
-  scale_y_continuous(name = "", position = "right") +  
-  labs(x = NULL, title = "") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-
-# Combine the plots side by side
-plot_both_raw <- plot_high + plot_low + plot_layout(widths = c(1, 2))
-
-# save the plot
-ggsave(filename = "data_raw_scatter.png", plot = plot_both, path = "./plots/", width = 8, height = 4, units = "in", dpi = 300)
-
+#------Plot scaled values to check for skewed distributions------------------------------------------------------------------
 
 df_long <- data %>%
   pivot_longer(cols = -subject_id, names_to = "variable", values_to = "value")
 
 # Define high-scale and low-scale variable sets
-high_scale_vars <- c("BPr", "Chol", "HRm")  # Variables with larger scales
-non_low <- c("AGE", "BPr", "Chol", "SEX", "HRm") # includes age and sex, since we dont really care about distribution
+high_scale_vars <- c("BPr", "Chol", "HRm", "STd")  # Variables with larger scales
+non_low <- c("AGE", "BPr", "Chol", "SEX", "HRm", "STd") # includes age and sex, since we dont really care about distribution
 low_scale_vars <- setdiff(unique(df_long$variable), non_low)  # The rest
 
 # Plot high-scale variables (left side)
 plot_high <- ggplot(df_long %>% filter(variable %in% high_scale_vars), aes(x = variable, y = value)) +
-  geom_jitter(width = 0.2, alpha = 0.6) +
+  geom_jitter(width = 0.2, height=0, alpha = 0.6) +
   scale_y_continuous(name = "") +  # Left y-axis label
   labs(x = NULL, title = "") +
   theme_minimal() +
@@ -115,7 +120,7 @@ plot_high <- ggplot(df_long %>% filter(variable %in% high_scale_vars), aes(x = v
 
 # Plot low-scale variables (right side)
 plot_low <- ggplot(df_long %>% filter(variable %in% low_scale_vars), aes(x = variable, y = value)) +
-  geom_jitter(width = 0.3, alpha = 0.2) +
+  geom_jitter(width = 0.3, height=0.1, alpha = 0.2) +
   scale_y_continuous(name = "", position = "right") +  
   labs(x = NULL, title = "") +
   theme_minimal() +
@@ -126,7 +131,7 @@ plot_low <- ggplot(df_long %>% filter(variable %in% low_scale_vars), aes(x = var
 plot_both <- plot_high + plot_low + plot_layout(widths = c(1, 2))
 
 # save the plot
-ggsave(filename = "data_scatter.png", plot = plot_both, path = "./plots/", width = 8, height = 4, units = "in", dpi = 300)
+ggsave(filename = paste(data_type,"_scatter.png"), plot = plot_both, path = "./plots/", width = 8, height = 4, units = "in", dpi = 300)
 
 
 # Compute and plot correlations between variables
@@ -144,10 +149,10 @@ cor_mat <- ggplot(data = melt_cor, aes(x = Var1, y = Var2, fill = value)) +
   ylab("") +
   labs(fill = "Corr(X,Y)")
 
-ggsave(filename = "data_corr_matrix.png", plot = cor_mat, path = "./plots/", width = 4, height = 4, units = "in", dpi = 300)
+ggsave(filename = paste(data_type,"_corr_matrix.png"), plot = cor_mat, path = "./plots/", width = 4, height = 4, units = "in", dpi = 300)
 
 p.mat <- cor_pmat(data[,-1])
 
 alt_corr_plot <- ggcorrplot(cor_round, p.mat = p.mat)
 
-ggsave(filename = "data_alt_corr_matrix.png", plot = alt_corr_plot, path = "./plots/", width = 6, height = 6, units = "in", dpi = 300)
+ggsave(filename = paste(data_type,"_alt_corr_matrix.png"), plot = alt_corr_plot, path = "./plots/", width = 6, height = 6, units = "in", dpi = 300)
