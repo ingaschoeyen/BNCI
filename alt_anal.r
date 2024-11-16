@@ -44,15 +44,15 @@ dag <- dagitty(dagtxt)
 
 # plot dag
 dag_fig <- ggdag(dag)
+print(dag_fig)
 
+# plot correlation matrix
 cor_mat <- cor(data[,-1])
-
 p.mat <- cor_pmat(data[,-1])
-
 corr_plot <- ggcorrplot(round(cor_mat, 2), p.mat = p.mat) 
 print(corr_plot)
 
-
+# fit the model
 M <- lavCor(data)
 
 fit <- sem(toString(dag, "lavaan"), sample.cov = M, sample.nobs = nrow(data))   # fit the model
