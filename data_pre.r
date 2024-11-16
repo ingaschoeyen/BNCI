@@ -7,7 +7,7 @@ library(reshape2)
 library(ggcorrplot)
 
 
-data_type <- 'data'
+data_type <- 'data' # 'data' or 'data_clean'
 data_path <- paste(data_type,'.csv', sep='')
 
 

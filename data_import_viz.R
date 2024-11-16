@@ -17,7 +17,8 @@ load_dag <- function(filepath) {
 local_tests_utility <- function(dag, M, data) {
   # local chi-square tests
   t <- localTests(x = dag, sample.cov = M, sample.nobs = nrow(data))
-  plotLocalTestResults(t)
+  conIndT_plot <- plotLocalTestResults(t)
+  save_png(conIndT_plot, filename = "local_tests.png")
   return(t)
 }
 
@@ -96,7 +97,7 @@ colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe"
 M <- lavCor(data)
 print(varTable(data))
 
-dagpath <- "my_dag.txt"
+dagpath <- "dags/my_dag.txt"
 g <- load_dag(dagpath)
 
 # Fit model
@@ -110,7 +111,7 @@ imp_violations <- tail(ests, 8)
 imp_violations
 
 # the important violations mostly seem to have to do with SEX and THA, so we add a direct path here
-dagpath <- "my_dag_tested.txt"
+dagpath <- "dags/my_dag_tested.txt"
 g <- load_dag(dagpath)
 
 # re-run conditional independence assumptions tests
@@ -122,11 +123,11 @@ imp_violations
 # now, there seems to be some issues relating to Age and CA. Here, we actually have two possibilities.
 # either add a direct arrow Age -> CA, or an arrow Cho -> CA. I will try both.
 
-dagpath <- "my_experimental_dag_1.txt"
+dagpath <- "dags/my_experimental_dag_1.txt"
 g <- load_dag(dagpath)
 test <- local_tests_utility(g, M, data)
 
-dagpath <- "my_experimental_dag_2.txt"
+dagpath <- "dags/my_experimental_dag_2.txt"
 g <- load_dag(dagpath)
 test <- local_tests_utility(g, M, data)
 
@@ -136,7 +137,7 @@ test <- local_tests_utility(g, M, data)
 # Fit new model ------------------------------------------------------------------------------------
 # fit model (after running conditional independence tests!)
 
-dagpath <- "my_experimental_dag_2.txt"
+dagpath <- "dags/my_experimental_dag_2.txt"
 g <- load_dag(dagpath)
 
 # Fit model
@@ -147,7 +148,7 @@ rems <- subset(coeffs, abs(b)<0.01)
 rems
 
 # Now I go to dagitty and make this change in our graph, which results in:
-dagpath <- "my_pruned_dag.txt"
+dagpath <- "dags/my_pruned_dag.txt"
 g <- load_dag(dagpath)
 # Fit model
 fit <- fit_then_plot(g, M, data)

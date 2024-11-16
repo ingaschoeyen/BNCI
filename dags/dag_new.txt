@@ -3,29 +3,29 @@ AGE [pos="0.303,-0.865"]
 BPr [pos="-0.325,0.704"]
 FBS [pos="-1.653,-0.461"]
 CP [pos="0.931,0.704"]
-Cho [exposure,pos="-1.090,0.168"]
-ECr [pos="-0.882,0.697"]
-ANe [pos="1.367,0.704"]
+Chol [exposure,pos="-1.090,0.168"]
+ECGr [pos="-0.882,0.697"]
+ANGe [pos="1.367,0.704"]
 STd [pos="-1.430,0.711"]
 HD [outcome,pos="0.638,-0.315"]
-HRm [pos="0.050,0.717"]
+HRmax [pos="0.050,0.717"]
 SEX [pos="1.073,-0.878"]
-Tha [pos="0.491,0.737"]
+Thal [pos="0.491,0.737"]
 CA [pos="-2.048,0.247"]
 STs [pos="-1.815,0.744"]
 AGE -> HD
-BPr -> ECr
-FBS -> Cho
-CP -> HRm [pos="0.526,1.386"]
-CP -> Tha
-Cho -> HD
-ECr -> STd
-ANe -> CP
+BPr -> ECGr
+FBS -> Chol
+CP -> HRmax [pos="0.526,1.386"]
+CP -> Thal
+Chol -> HD
+ECGr -> STd
+ANGe -> CP
 HD -> BPr
 HD -> CP
-HD -> ANe
-HD -> HRm
-HD -> Tha
-HRm -> ECr [pos="-0.376,1.306"]
+HD -> ANGe
+HD -> HRmax
+HD -> Thal
+HRmax -> ECGr [pos="-0.376,1.306"]
 SEX -> HD
 }
