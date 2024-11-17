@@ -12,8 +12,9 @@ library(ggcorrplot)
 data <- read.csv(data_path)
 
 data <- data[complete.cases(data),]
+data <- data[,-1]
 
-colnames(data) <- c("subject_id", "AGE", "SEX", "CP", "BPr", "Chol", "FBS", "ECGr", "HRmax", "ANGe", "STd", "STs","CA", "Thal", "HD")
+colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Chol", "FBS", "ECGr", "HRmax", "ANGe", "STd", "STs","CA", "Thal", "HD")
 
 # scale continuous and dummy code categorical variables
 categ_var <- c("SEX", "CP", "FBS", "ECGr", "ANGe", "STs", "CA", "Thal", "HD")
@@ -38,7 +39,7 @@ print(head(data))
 
 
 # load and test dag
-dag_path <- "dags/stian_dag.txt"
+dag_path <- "dags/dummy_dag_HD_bin.txt"
 dagtxt <- read_file(dag_path)
 dag <- dagitty(dagtxt)
 
@@ -47,14 +48,14 @@ dag_fig <- ggdag(dag)
 print(dag_fig)
 
 # plot correlation matrix
-cor_mat <- cor(data[,-1])
-p.mat <- cor_pmat(data[,-1])
-corr_plot <- ggcorrplot(round(cor_mat, 2), p.mat = p.mat) 
+cor_mat <- cor(data)
+p.mat <- cor_pmat(data)
+corr_plot <- ggcorrplot(round(cor_mat, 2), p.mat = p.mat)+theme(axis.text.x = element_text(angle = 70, vjust = 1, hjust = .9))
 print(corr_plot)
 
 # fit the model
 M <- lavCor(data)
-
+print(M)
 fit <- sem(toString(dag, "lavaan"), sample.cov = M, sample.nobs = nrow(data))   # fit the model
 print(varTable(fit))  # print the results
 

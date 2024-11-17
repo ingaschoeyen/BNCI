@@ -1,0 +1,58 @@
+dag {
+AGE [pos="-1.811,-1.306"]
+ANGe_1 [pos="-0.325,0.824"]
+BPr [pos="-0.280,-0.633"]
+CA_1 [pos="-1.341,0.738"]
+CP_1 [pos="-1.033,-0.515"]
+CP_2 [pos="-1.332,-0.290"]
+CP_3 [pos="-0.947,-0.109"]
+Ca_2 [pos="-1.388,0.479"]
+Ca_3 [pos="-1.375,0.201"]
+Chol [exposure,pos="-0.603,-1.099"]
+ECGr_1 [pos="0.523,-0.981"]
+ECGr_2 [pos="0.852,-0.740"]
+FBS [pos="-0.655,-1.557"]
+HD [outcome,pos="-0.417,0.209"]
+HRmax [pos="0.157,-0.261"]
+SEX_0 [pos="1.528,-1.301"]
+STd [pos="0.483,0.691"]
+STs_2 [pos="0.939,0.340"]
+STs_3 [pos="0.945,0.043"]
+Thal_6 [pos="-0.829,0.780"]
+Thal_7 [pos="-0.817,1.072"]
+AGE -> CP_1
+AGE -> CP_2
+AGE -> CP_3
+AGE -> Chol
+AGE -> HD [pos="-1.686,0.158"]
+BPr -> CP_1
+BPr -> CP_2
+BPr -> CP_3
+BPr -> ECGr_1
+BPr -> ECGr_2
+BPr -> HRmax
+CP_1 -> HD
+CP_2 -> HD
+CP_3 -> HD
+Chol -> BPr
+Chol -> CP_1
+Chol -> CP_2
+Chol -> CP_3
+FBS -> Chol
+HD -> ANGe_1
+HD -> CA_1
+HD -> Ca_2
+HD -> Ca_3
+HD -> STd
+HD -> STs_2
+HD -> STs_3
+HD -> Thal_6
+HD -> Thal_7
+HRmax -> CA_1 [pos="-0.630,-0.163"]
+HRmax -> Ca_2
+HRmax -> Ca_3
+HRmax -> ECGr_1
+HRmax -> ECGr_2
+SEX_0 -> Chol
+SEX_0 -> HD [pos="1.596,-0.198"]
+}
