@@ -39,7 +39,7 @@ print(head(data))
 
 
 # load and test dag
-dag_path <- "dags/dummy_dag_HD_bin.txt"
+dag_path <- "dags/dummy_dag_HD_ord.txt"
 dagtxt <- read_file(dag_path)
 dag <- dagitty(dagtxt)
 
