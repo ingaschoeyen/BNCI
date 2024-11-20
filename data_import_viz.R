@@ -90,7 +90,7 @@ print(summary(data))
 # change var names to match DAG
 # old colnames
 # c <- c("Age", "Sex", "CPtype", "BPrest", "Chol", "BSfast", "ECGrest", "HRmax", "ExIndAng" , "ExIndStDep", "slope", "Thal", "ca", "HDDiag")
-colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Cho", "FBS", "ECr", "HRm", "ANe", "STd", "STs","CA", "Tha", "HD")
+colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Chol", "FBS", "ECGr", "HRmax", "ANGe", "STd", "STs","CA", "Thal", "HD")
 
 
 # Getting lavaan polychoric correlation matrix
