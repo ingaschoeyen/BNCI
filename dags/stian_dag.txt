@@ -1,36 +1,36 @@
 dag {
 AGE [pos="-1.811,-1.306"]
 CA [pos="-1.341,0.738"]
-Cho [exposure,pos="-0.603,-1.099"]
+Chol [exposure,pos="-0.603,-1.099"]
 CP [pos="-1.033,-0.515"]
-ANe [pos="-0.325,0.824"]
+ANGe [pos="-0.325,0.824"]
 STd [pos="0.483,0.691"]
 FBS [pos="-0.655,-1.557"]
 HD [outcome,pos="-0.417,0.209"]
 BPr [pos="-0.280,-0.633"]
-ECr [pos="0.257,-0.973"]
-HRm [pos="0.157,-0.261"]
+ECGr [pos="0.257,-0.973"]
+HRmax [pos="0.157,-0.261"]
 SEX [pos="1.337,-1.662"]
 STs [pos="0.578,0.354"]
-Tha [pos="-0.844,0.961"]
-AGE -> Cho
+Thal [pos="-0.844,0.961"]
+AGE -> Chol
 AGE -> CP
 AGE -> HD [pos="-1.686,0.158"]
-Cho -> CP
-Cho -> BPr
+Chol -> CP
+Chol -> BPr
 CP -> HD
-FBS -> Cho
+FBS -> Chol
 HD -> CA
-HD -> ANe
+HD -> ANGe
 HD -> STd
 HD -> STs
-HD -> Tha
+HD -> Thal
 BPr -> CP
-BPr -> ECr
-BPr -> HRm
-HRm -> CA [pos="-0.630,-0.163"]
-HRm -> ECr
-SEX -> Cho
+BPr -> ECGr
+BPr -> HRmax
+HRmax -> CA [pos="-0.630,-0.163"]
+HRmax -> ECGr
+SEX -> Chol
 SEX -> HD [pos="1.386,-0.347"]
-SEX -> HRm
+SEX -> HRmax
 }

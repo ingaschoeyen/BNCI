@@ -1,0 +1,102 @@
+dag {
+AGE [pos="-1.168,-0.899"]
+ANGe_1 [pos="-0.212,0.572"]
+BPr [pos="-0.340,-0.602"]
+CA_1 [pos="-0.944,0.481"]
+CA_2 [pos="-0.940,0.592"]
+CA_3 [pos="-0.936,0.704"]
+CP_1 [pos="-0.697,-0.155"]
+CP_2 [pos="-0.697,-0.040"]
+CP_3 [pos="-0.697,-0.266"]
+Chol [exposure,pos="-0.738,-1.175"]
+ECGr_1 [pos="0.359,-0.660"]
+ECGr_2 [pos="0.359,-0.545"]
+FBS_1 [pos="-0.749,-1.424"]
+HD_1 [outcome,pos="-0.178,-0.269"]
+HD_2 [outcome,pos="-0.167,-0.111"]
+HD_3 [outcome,pos="-0.167,0.051"]
+HD_4 [outcome,pos="-0.167,0.215"]
+HRmax [pos="0.381,-0.118"]
+SEX_0 [pos="-0.138,-1.040"]
+STd [pos="0.127,0.586"]
+STs_2 [pos="0.414,0.518"]
+STs_3 [pos="0.414,0.633"]
+Thal_6 [pos="-0.583,0.518"]
+Thal_7 [pos="-0.587,0.629"]
+AGE -> CP_1
+AGE -> CP_2
+AGE -> CP_3
+AGE -> Chol
+AGE -> HD_1 [pos="-1.686,0.158"]
+AGE -> HD_2
+AGE -> HD_3
+AGE -> HD_4
+BPr -> CP_1
+BPr -> CP_2
+BPr -> CP_3
+BPr -> ECGr_1
+BPr -> ECGr_2
+BPr -> HRmax
+CP_1 -> HD_1
+CP_1 -> HD_2
+CP_1 -> HD_3
+CP_1 -> HD_4
+CP_2 -> HD_1
+CP_2 -> HD_2
+CP_2 -> HD_3
+CP_2 -> HD_4
+CP_3 -> HD_1
+CP_3 -> HD_2
+CP_3 -> HD_3
+CP_3 -> HD_4
+Chol -> BPr
+Chol -> CP_1
+Chol -> CP_2
+Chol -> CP_3
+FBS_1 -> Chol
+HD_1 -> ANGe_1
+HD_1 -> CA_1
+HD_1 -> CA_2
+HD_1 -> STd
+HD_1 -> STs_2
+HD_1 -> STs_3
+HD_1 -> Thal_6
+HD_1 -> Thal_7
+HD_2 -> ANGe_1
+HD_2 -> CA_1
+HD_2 -> CA_2
+HD_2 -> CA_3
+HD_2 -> STd
+HD_2 -> STs_2
+HD_2 -> STs_3
+HD_2 -> Thal_6
+HD_2 -> Thal_7
+HD_3 -> ANGe_1
+HD_3 -> CA_1
+HD_3 -> CA_2
+HD_3 -> CA_3
+HD_3 -> STd
+HD_3 -> STs_2
+HD_3 -> STs_3
+HD_3 -> Thal_6
+HD_3 -> Thal_7
+HD_4 -> ANGe_1
+HD_4 -> CA_1
+HD_4 -> CA_2
+HD_4 -> CA_3
+HD_4 -> STd
+HD_4 -> STs_2
+HD_4 -> STs_3
+HD_4 -> Thal_6
+HD_4 -> Thal_7
+HRmax -> CA_1 [pos="-0.630,-0.163"]
+HRmax -> CA_2
+HRmax -> CA_3
+HRmax -> ECGr_1
+HRmax -> ECGr_2
+SEX_0 -> Chol
+SEX_0 -> HD_1 [pos="1.596,-0.198"]
+SEX_0 -> HD_2
+SEX_0 -> HD_3
+SEX_0 -> HD_4
+}
