@@ -15,6 +15,6 @@ SEX \ci Tha $\mid$ BPr, CP, HD, HRm & 0.4497803 & 1.591165e-16 & 0.3537920 & 0.5
 
 In figure, we show the most egregious of these violations. As can be seen, most involved either a conditional independence assumption between SEX and Tha, or AGE and CA. Therefore, we fixed these one by one, confirming that after adding an edge between SEX and Tha, that the violations involving AGE and CA still held. 
 
-After making these changes, we fit the new model. Then, given the new fit, we examined the coefficients of the fit, and for any of the coefficients that had an absolute value smaller than $0.01$, we removed that edge from the graph. This resulted in only one edge being removed, namely the edge from FBS to HD, which is interesting in its own right.
+After making these changes, we fit the new model. Then, given the new fit, we examined the coefficients of the fit, and for any of the coefficients that had an absolute value smaller than $0.01$, we removed that edge from the graph. This resulted in only one edge being removed, namely the edge from CA to ANe, which is interesting in its own right.
 
 After this, we ended up with our final network model [include final network model here, which is the one from my_pruned_dag.txt]

@@ -65,7 +65,7 @@ data <- data |>
     exang   = as.numeric(factor(exang, ordered=TRUE))-1,
     slope   = as.numeric(factor(ifelse(slope[] > 1, 1, 0)))-1,
     ca      = factor(ca, ordered = TRUE),
-    num     = as.numeric(factor(num, ordered = TRUE))-1,
+    num     = as.numeric(factor(ifelse(num[] > 1, 1, 0)))-1,
   )
 
 data$thal <- ordered(case_match(
@@ -144,7 +144,6 @@ fit <- fit_then_plot(g, M, data)
 coeffs <- lavaan_reg(fit)
 # remove any that are between 0.01 and -0.01, in the b column
 rems <- subset(coeffs, abs(b)<0.01)
-rems
 
 # Now I go to dagitty and make this change in our graph, which results in:
 dagpath <- "my_pruned_dag.txt"

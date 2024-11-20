@@ -20,7 +20,6 @@ AGE -> CA
 ANe -> CP
 BPr -> CA
 BPr -> ECr
-CA -> ANe
 CA -> Tha
 CP -> HRm
 CP -> Tha
@@ -28,6 +27,7 @@ Cho -> FBS
 Cho -> HD
 ECr -> STd
 FBS -> BPr
+FBS -> HD
 FBS -> HRm
 HD -> ANe
 HD -> BPr
