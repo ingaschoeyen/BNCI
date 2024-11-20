@@ -20,7 +20,6 @@ AGE -> CA
 ANGe -> CP
 BPr -> CA
 BPr -> ECGr
-CA -> ANGe
 CA -> Thal
 CP -> HRmax
 CP -> Thal
@@ -29,6 +28,7 @@ Chol -> HD
 ECGr -> STd
 FBS -> BPr
 FBS -> HRmax
+FBS -> HD
 HD -> ANGe
 HD -> BPr
 HD -> CA
