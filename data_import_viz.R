@@ -97,10 +97,11 @@ colnames(data) <- c("AGE", "SEX", "CP", "BPr", "Chol", "FBS", "ECGr", "HRmax", "
 M <- lavCor(data)
 print(varTable(data))
 
-cor_mat <- cor(data)
-p.mat <- cor_pmat(data)
-corr_plot <- ggcorrplot(round(cor_mat, 2), p.mat = p.mat)+theme(axis.text.x = element_text(angle = 70, vjust = 1, hjust = .9))
-print(corr_plot)
+# commenting this out for now, as it gave an error: Error in cor(data) : 'x' must be numeric
+# cor_mat <- cor(data)
+# p.mat <- cor_pmat(data)
+# corr_plot <- ggcorrplot(round(cor_mat, 2), p.mat = p.mat)+theme(axis.text.x = element_text(angle = 70, vjust = 1, hjust = .9))
+# print(corr_plot)
 
 
 dagpath <- "dags/my_dag.txt"
@@ -159,4 +160,15 @@ g <- load_dag(dagpath)
 fit <- fit_then_plot(g, M, data)
 # do independence tests
 test <- local_tests_utility(g, M, data)
+
+# Covariate adjustment set tests -------------------------------------------------------------------
+
+# First for effect of Chol -> HD
+adjustmentSets(g, "Chol", "HD")
+
+# Second, FBS -> HD
+
+# Third, Age -> HD
+
+# Fourth, Sex -> HD
 
