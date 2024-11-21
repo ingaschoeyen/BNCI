@@ -18,7 +18,7 @@ local_tests_utility <- function(dag, M, data) {
   # local chi-square tests
   t <- localTests(x = dag, sample.cov = M, sample.nobs = nrow(data))
   conIndT_plot <- plotLocalTestResults(t)
-  save_png(conIndT_plot, filename = "local_tests.png")
+#   save_png(conIndT_plot, filename = "local_tests.png")
   return(t)
 }
 
@@ -165,10 +165,35 @@ test <- local_tests_utility(g, M, data)
 
 # First for effect of Chol -> HD
 adjustmentSets(g, "Chol", "HD")
+chol_lm <- glm(HD ~ Chol + AGE + SEX, data, family="binomial")
+coef(chol_lm)
+# results:
+# (Intercept)        Chol         AGE         SEX 
+# -1.8760673   0.1995548   0.5364117   1.1917547 
+
 
 # Second, FBS -> HD
+adjustmentSets(g, "FBS", "HD")
+fbs_lm <- glm(HD ~ FBS + Chol, data, family="binomial")
+coef(fbs_lm)
+# results:
+# (Intercept)         FBS        Chol 
+# -1.0520065   0.6196554   0.1621217 
 
 # Third, Age -> HD
+adjustmentSets(g, "AGE", "HD")
+age_lm <- glm(HD ~ AGE, data, family="binomial")
+coef(age_lm)
+# results:
+# (Intercept)         AGE 
+# -0.9983001   0.4860253 
 
 # Fourth, Sex -> HD
+adjustmentSets(g, "SEX", "HD")
+sex_lm <- glm(HD ~ SEX, data, family="binomial")
+coef(sex_lm)
+# results:
+# (Intercept)         SEX 
+# -1.6094379   0.9162907 
+
 
