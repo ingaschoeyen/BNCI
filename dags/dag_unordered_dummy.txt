@@ -1,0 +1,52 @@
+dag {
+bb="-4.75,-5.307,4.719,5.999"
+AGE [pos="-2.793,-3.919"]
+ANGe [pos="2.821,1.631"]
+BPr [pos="0.528,-1.851"]
+CA [pos="2.891,-0.574"]
+CP_1 [pos="-4.174,-1.232"]
+CP_2 [pos="-3.866,-0.501"]
+CP_3 [pos="-3.379,0.185"]
+Chol [exposure,pos="-1.143,1.734"]
+ECGr [pos="3.377,-4.365"]
+FBS [exposure,pos="-2.524,2.260"]
+HD [outcome,pos="0.914,0.200"]
+HRmax [pos="3.590,-1.620"]
+SEX [pos="-0.388,-3.963"]
+STd [pos="3.934,1.193"]
+STs_2 [pos="3.930,-0.252"]
+STs_3 [pos="3.944,0.258"]
+Thal_6 [pos="0.725,2.318"]
+Thal_7 [pos="1.381,2.318"]
+AGE -> CP_1
+AGE -> CP_2
+AGE -> CP_3
+AGE -> Chol
+AGE -> HD
+BPr -> CP_1
+BPr -> CP_2
+BPr -> CP_3
+BPr -> ECGr
+BPr -> HRmax
+CP_1 -> HD
+CP_2 -> HD
+CP_3 -> HD
+Chol -> BPr
+Chol -> CP_1
+Chol -> CP_2
+Chol -> CP_3
+FBS -> HD
+HD -> ANGe
+HD -> CA
+HD -> STd
+HD -> STs_2
+HD -> STs_3
+HD -> Thal_6
+HD -> Thal_7
+HRmax -> CA
+HRmax -> ECGr
+SEX -> Chol
+SEX -> FBS
+SEX -> HD
+SEX -> HRmax
+}

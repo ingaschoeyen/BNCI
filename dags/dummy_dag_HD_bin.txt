@@ -11,10 +11,10 @@ CP_3 [pos="-0.697,-0.266"]
 Chol [exposure,pos="-0.738,-1.175"]
 ECGr_1 [pos="0.359,-0.660"]
 ECGr_2 [pos="0.359,-0.545"]
-FBS_1 [pos="-0.749,-1.424"]
-HD_1 [outcome,pos="-0.178,-0.269"]
+FBS [pos="-0.749,-1.424"]
+HD [outcome,pos="-0.178,-0.269"]
 HRmax [pos="0.381,-0.118"]
-SEX_0 [pos="-0.138,-1.040"]
+SEX [pos="-0.138,-1.040"]
 STd [pos="0.127,0.586"]
 STs_2 [pos="0.414,0.518"]
 STs_3 [pos="0.414,0.633"]
@@ -24,34 +24,34 @@ AGE -> CP_1
 AGE -> CP_2
 AGE -> CP_3
 AGE -> Chol
-AGE -> HD_1 [pos="-1.686,0.158"]
+AGE -> HD [pos="-1.686,0.158"]
 BPr -> CP_1
 BPr -> CP_2
 BPr -> CP_3
 BPr -> ECGr_1
 BPr -> ECGr_2
 BPr -> HRmax
-CP_1 -> HD_1
-CP_2 -> HD_1
-CP_3 -> HD_1
+CP_1 -> HD
+CP_2 -> HD
+CP_3 -> HD
 Chol -> BPr
 Chol -> CP_1
 Chol -> CP_2
 Chol -> CP_3
-FBS_1 -> Chol
-HD_1 -> ANGe_1
-HD_1 -> CA_1
-HD_1 -> CA_2
-HD_1 -> STd
-HD_1 -> STs_2
-HD_1 -> STs_3
-HD_1 -> Thal_6
-HD_1 -> Thal_7
+FBS -> Chol
+HD -> ANGe_1
+HD -> CA_1
+HD -> CA_2
+HD -> STd
+HD -> STs_2
+HD -> STs_3
+HD -> Thal_6
+HD -> Thal_7
 HRmax -> CA_1 [pos="-0.630,-0.163"]
 HRmax -> CA_2
 HRmax -> CA_3
 HRmax -> ECGr_1
 HRmax -> ECGr_2
-SEX_0 -> Chol
-SEX_0 -> HD_1 [pos="1.596,-0.198"]
+SEX -> Chol
+SEX -> HD [pos="1.596,-0.198"]
 }

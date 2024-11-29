@@ -1,6 +1,5 @@
 # Variable Names, Type, and Range
 
-insert table below
 
 | Variable Name | Type | Range | Description | Acronym
 | --- | --- | --- | --- | --- |
@@ -18,4 +17,11 @@ insert table below
 | 'slope' | Categorical | [1,2,3] | Slope of the ST curve | 'STs' |
 | 'ca' | Integer | [0,1,2,3] | Number of Blood Vessels counted | 'CA' |
 | 'thal' | Categorical  | [3,6,7]  | Categorical Outcome of Thalach Test | 'Thal' |
-| 'num'  | Categorical  | [0,1]  | Diagnosis of Heart Disease |  'HD' |
+| 'num'  | Categorical  | [0,1,2,3]  | Diagnosis of Heart Disease |  'HD' |
+
+## Description
+
+* Age, BPr, Chol, HRmax, and STd are continuous
+* FBS, ANGe, SEX are binary
+* ECGr, CA, and HD are ordered categorical
+* CP, STs, and Thal are unordered categorical

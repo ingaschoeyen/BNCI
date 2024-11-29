@@ -62,19 +62,19 @@ data <- data |>
     sex     = as.numeric(factor(sex, ordered=TRUE))-1,
     cp      = as.numeric(factor(ifelse(cp[] > 1, 1, 0)))-1,
     fbs     = as.numeric(factor(fbs, ordered=TRUE))-1,
-    restecg = factor(restecg, ordered=TRUE),
+    restecg = as.numeric(factor(restecg, ordered=TRUE)),
     exang   = as.numeric(factor(exang, ordered=TRUE))-1,
     slope   = as.numeric(factor(ifelse(slope[] > 1, 1, 0)))-1,
-    ca      = factor(ca, ordered = TRUE),
+    ca      = as.numeric(factor(ca, ordered = TRUE)),
     num     = as.numeric(factor(ifelse(num[] > 1, 1, 0)))-1,
   )
 
-data$thal <- ordered(case_match(
+data$thal <- as.numeric(ordered(case_match(
   data$thal,
   3 ~ 0,
   7 ~ 1,
   6 ~ 2
-  ))
+  )))
 
 # scale appropriate variables for comparisons
 data <- data |>
@@ -98,10 +98,12 @@ M <- lavCor(data)
 print(varTable(data))
 
 # commenting this out for now, as it gave an error: Error in cor(data) : 'x' must be numeric
-# cor_mat <- cor(data)
-# p.mat <- cor_pmat(data)
-# corr_plot <- ggcorrplot(round(cor_mat, 2), p.mat = p.mat)+theme(axis.text.x = element_text(angle = 70, vjust = 1, hjust = .9))
-# print(corr_plot)
+
+p.mat <- cor_pmat(data)
+p.mat.adjusted <- p.adjust(p.mat, method = "fdr")
+p.mat.adj.matr <- matrix(p.mat.adjusted, nrow = ncol(data), ncol = ncol(data))
+corr_plot <- ggcorrplot(M, p.mat = p.mat.adj.matr)+theme(axis.text.x = element_text(angle = 70, vjust = 1, hjust = .9))
+print(corr_plot)
 
 
 dagpath <- "dags/my_dag.txt"
@@ -160,6 +162,10 @@ g <- load_dag(dagpath)
 fit <- fit_then_plot(g, M, data)
 # do independence tests
 test <- local_tests_utility(g, M, data)
+
+# only plot significant results
+significant_results <- test[test$p.value < 0.05,]
+plotLocalTestResults(significant_results)
 
 # Covariate adjustment set tests -------------------------------------------------------------------
 
