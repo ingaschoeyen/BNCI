@@ -62,19 +62,19 @@ data <- data |>
     sex     = as.numeric(factor(sex, ordered=TRUE))-1,
     cp      = as.numeric(factor(ifelse(cp[] > 1, 1, 0)))-1,
     fbs     = as.numeric(factor(fbs, ordered=TRUE))-1,
-    restecg = as.numeric(factor(restecg, ordered=TRUE)),
+    restecg = factor(restecg, ordered=TRUE),
     exang   = as.numeric(factor(exang, ordered=TRUE))-1,
     slope   = as.numeric(factor(ifelse(slope[] > 1, 1, 0)))-1,
-    ca      = as.numeric(factor(ca, ordered = TRUE)),
+    ca      = factor(ca, ordered = TRUE),
     num     = as.numeric(factor(ifelse(num[] > 1, 1, 0)))-1,
   )
 
-data$thal <- as.numeric(ordered(case_match(
+data$thal <- ordered(case_match(
   data$thal,
   3 ~ 0,
   7 ~ 1,
   6 ~ 2
-  )))
+  ))
 
 # scale appropriate variables for comparisons
 data <- data |>
@@ -98,12 +98,10 @@ M <- lavCor(data)
 print(varTable(data))
 
 # commenting this out for now, as it gave an error: Error in cor(data) : 'x' must be numeric
-
-p.mat <- cor_pmat(data)
-p.mat.adjusted <- p.adjust(p.mat, method = "fdr")
-p.mat.adj.matr <- matrix(p.mat.adjusted, nrow = ncol(data), ncol = ncol(data))
-corr_plot <- ggcorrplot(M, p.mat = p.mat.adj.matr)+theme(axis.text.x = element_text(angle = 70, vjust = 1, hjust = .9))
-print(corr_plot)
+# cor_mat <- cor(data)
+# p.mat <- cor_pmat(data)
+# corr_plot <- ggcorrplot(round(cor_mat, 2), p.mat = p.mat)+theme(axis.text.x = element_text(angle = 70, vjust = 1, hjust = .9))
+# print(corr_plot)
 
 
 dagpath <- "dags/my_dag.txt"
@@ -163,10 +161,6 @@ fit <- fit_then_plot(g, M, data)
 # do independence tests
 test <- local_tests_utility(g, M, data)
 
-# only plot significant results
-significant_results <- test[test$p.value < 0.05,]
-plotLocalTestResults(significant_results)
-
 # Covariate adjustment set tests -------------------------------------------------------------------
 
 # First for effect of Chol -> HD
@@ -202,4 +196,32 @@ coef(sex_lm)
 # (Intercept)         SEX 
 # -1.6094379   0.9162907 
 
+# Just want to see what happens if we use family = "normal"
+adjustmentSets(g, "Chol", "HD")
+chol_nlm <- lm(HD ~ Chol + AGE + SEX, data)
+coef(chol_nlm)
+# results:
+# (Intercept)        Chol         AGE         SEX 
+# 0.14463512  0.03327852  0.09371778  0.19922075 
 
+#FBS -> HD
+adjustmentSets(g, "FBS", "HD")
+fbs_nlm <- lm(HD ~ FBS + Chol, data)
+coef(fbs_nlm)
+# results:
+# (Intercept)         FBS        Chol 
+# 0.26001572  0.13431004  0.03317958 
+
+#Age -> HD
+adjustmentSets(g, "AGE", "HD")
+age_nlm <- lm(HD ~ AGE, data)
+coef(age_nlm)
+# (Intercept)         AGE 
+# 0.27946128  0.09183736
+
+# Sex -> HD
+adjustmentSets(g, "SEX", "HD")
+sex_nlm <- lm(HD ~ SEX, data)
+coef(sex_nlm)
+# (Intercept)         SEX 
+# 0.1666667   0.1666667
