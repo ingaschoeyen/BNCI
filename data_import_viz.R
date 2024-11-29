@@ -196,7 +196,7 @@ coef(sex_lm)
 # (Intercept)         SEX 
 # -1.6094379   0.9162907 
 
-# Just want to see what happens if we use family = "normal"
+# Just want to see what happens if we use linear regression
 adjustmentSets(g, "Chol", "HD")
 chol_nlm <- lm(HD ~ Chol + AGE + SEX, data)
 coef(chol_nlm)
