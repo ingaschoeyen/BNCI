@@ -25,6 +25,7 @@
 * adjust the DAG from assignment 1?
     * dummy code? - no
     * HD binary - yes
+    * change the binary encoding of categorical variables to anginal vs non-anginal
 
 * timeline
     * 2 weeks to hand in draft
