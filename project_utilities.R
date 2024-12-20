@@ -63,3 +63,20 @@ cov_adjust_glm <- function(dag, predictor, outcome, data, family="binomial") {
   
   return(reg)
 }
+
+# automated dag adjustment:
+# with inspiration from Andrew Schroeder
+# removes the edge between var_a and var_b from the dag
+adjust_dag <- function(dagpath, new_dag, var_a, var_b) {
+  dag_lines <- readLines(dagpath)
+  pattern <- paste0(var_a, " -> ", var_b)
+  dag_lines <- paste0(dag_lines[!grepl(pattern, dag_lines)])
+  
+  print(pattern)
+  
+  writeLines(dag_lines, file.path("./dags/", new_dag))
+  message("Created file: ", new_dag)
+}
+
+# Example usage:
+# adjust_dag("./dags/dag_learned_hc_loglik-g.txt", "dag_learned_man_fix.txt", "Chol", "SEX")

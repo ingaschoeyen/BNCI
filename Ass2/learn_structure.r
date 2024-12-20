@@ -38,8 +38,8 @@ wlist <- matrix(c("Chol", "HD"), ncol=2, byrow=TRUE,
                 dimnames=list(NULL, c("from", "to")))
 
 # blacklist for some things that don't make sense
-# blist <- matrix(c("Chol", "AGE", "STd", "AGE"), ncol=2, byrow=TRUE,
-#                dimnames=list(NULL, c("from", "to")))
+# blist <- matrix(c("Chol", "SEX", "Chol", "AGE", "STd", "AGE"), ncol=2, byrow=TRUE,
+#                 dimnames=list(NULL, c("from", "to")))
 
 # set up parallel processing cluster
 cl = makeCluster(2)
