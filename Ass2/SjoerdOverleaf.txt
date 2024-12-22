@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+\lstset{language=R,
+    basicstyle=\small\ttfamily,
+    stringstyle=\color{DarkGreen},
+    otherkeywords={0,1,2,3,4,5,6,7,8,9},
+    morekeywords={TRUE,FALSE},
+    deletekeywords={data,frame,length,as,character},
+    keywordstyle=\color{blue},
+    commentstyle=\color{DarkGreen},
+}
+
+\title{SjoerdBNCI}
+\author{Sjoerd Jansen}
+\date{December 2024}
+
+\begin{document}
+
+\maketitle
+\section{Results}
+
+
+\subsection{Structure Learning}
+
+\subsection{Causal Inference Analysis}
+\subsubsection{Propensity score adjustment}
+Since our treatment variable, serum cholesterol, is continuous. We cannot perform standard propensity score matching. Instead, we can perform propensity score adjustment, following the paper \cite{imbens} (see r-companion). 
+First, we fit a linear model describing the Cholesterol level in terms of the Age and Sex variable. The likelihood of a data point, i.e./ a patient, now constitutes its propensity score. These likelihoods are computed by evaluating the corresponding Gaussian distribution on the residuals. In the next step, we use a logistic regression model to estimate the effect of serum cholesterol on the binary heart diagnosis variable, adjusted for this score.
+
+\begin{verbatim}
+Call: glm(formula = HD ~ Chol +AGE + SEX, family = "binomial", 
+data = data)
+
+Coefficients:
+(Intercept)         Chol          AGE          SEX  
+    -1.8761       0.1996       0.5364       1.1918  
+
+Degrees of Freedom: 296 Total (i.e. Null);  293 Residual
+Null Deviance:	    351.9 
+Residual Deviance: 324.5 	AIC: 332.5
+
+Call:  glm(formula = HD ~ Chol + score, family = "binomial",
+data = data)
+
+Coefficients:
+(Intercept)         Chol        score  
+    -0.2726       0.1058      -2.2864  
+
+Degrees of Freedom: 296 Total (i.e. Null);  294 Residual
+Null Deviance:	    351.9 
+Residual Deviance: 346.5 	AIC: 352.5
+
+Call:  glm(formula = HD ~ Chol, family = "binomial", 
+data = data)
+
+Coefficients:
+(Intercept)         Chol  
+    -0.9527       0.1633  
+
+Degrees of Freedom: 296 Total (i.e. Null);  295 Residual
+Null Deviance:	    351.9 
+Residual Deviance: 350.3 	AIC: 354.3
+\end{verbatim}
+
+The results of these analyses show a relatively large quantitative difference. The coefficients of logistic regression are interpreted as log odds ratios.
+\end{document}
