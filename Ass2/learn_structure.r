@@ -38,15 +38,28 @@ wlist <- matrix(c("Chol", "HD"), ncol=2, byrow=TRUE,
                 dimnames=list(NULL, c("from", "to")))
 
 # blacklist for some things that don't make sense
-# blist <- matrix(c("Chol", "SEX", "Chol", "AGE", "STd", "AGE"), ncol=2, byrow=TRUE,
-#                 dimnames=list(NULL, c("from", "to")))
+blist <- matrix(c("Chol", "SEX", "Chol", "AGE", "STd", "AGE"), ncol=2, byrow=TRUE,
+                 dimnames=list(NULL, c("from", "to")))
 
 # set up parallel processing cluster
-cl = makeCluster(2)
-# pdag <- si.hiton.pc(sdat, cluster = cl, whitelist = wlist, test="mc-cor", alpha=0.000001)
-pdag <- hc(sdat, whitelist = wlist, score = "loglik-g")
+# cl = makeCluster(2)
+# pdag <- si.hiton.pc(sdat, cluster = cl, whitelist = wlist, test="mi-g")
+# pdag <- tabu(sdat, whitelist = wlist, score = "aic-g")
+pdag <- hc(sdat, whitelist = wlist, blacklist = blist, score = "aic-g")
+# pdag <- hc(sdat, whitelist = wlist, blacklist = blist, score = "loglik-g")
 # pdag <- mmhc(sdat, whitelist = wlist)
-stopCluster(cl)
-plot(pdag)
+# stopCluster(cl)
 
-dag <- as.dagitty(pdag)
+pdag <- orientPDAG(pdag)
+pdag <- as.dagitty(pdag)
+
+dag_str <- sub("pdag", "dag", pdag)
+dag <- dagitty(dag_str)
+
+dagplot <- ggdag(dag)
+print(dagplot)
+
+# save final dag plot
+ggsave(filename = "learned_dag_aic.png", plot = dagplot, path = "./plots", width = 6, height = 4, units = "in", dpi = 300)
+
+

@@ -1,0 +1,26 @@
+dag {
+AGE
+ANGe
+BPr
+CA
+CP
+Chol
+ECGr
+FBS
+HD
+HRmax
+SEX
+STd
+STs
+Thal
+AGE -> BPr
+AGE -> CA
+CA -> HD
+Chol -> HD
+HD -> STd
+HRmax -> ANGe
+SEX -> Thal
+STd -> STs
+STs -> HRmax
+STs -> Thal
+}
