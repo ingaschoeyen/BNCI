@@ -177,13 +177,14 @@ plot_sem_forest <- function(fit) {
   # Create a text table for the forest plot
   text_table <- cbind(
     paste(forest_data$Predictor, "->", forest_data$Outcome), # Predictor -> Outcome
-    sprintf("%.2f", forest_data$Estimate),                  # Estimate
+    sprintf("%.2f", forest_data$SE),                  # Estimate
     sprintf("%.2f", forest_data$CI_lower),
     sprintf("%.2f", forest_data$CI_upper), # Confidence Interval
+    sprintf("%.2f", forest_data$Estimate), # Standard Error
     ifelse(forest_data$P_value < 0.001, "< .1%", sprintf("%.3f", forest_data$P_value)) # P-value
   )
   # Add column labels for the forest plot
-  header <- c("Relationship", "Estimate", "95% CI (lower)", "95% CI (upper)", "P-value")
+  header <- c("Formula", "Std. Error", "95% CI (lower)", "95% CI (upper)", "\U1D5D", "P-value")
   
   # Combine header with the text table
   text_table <- rbind(header, text_table)
@@ -197,17 +198,17 @@ plot_sem_forest <- function(fit) {
     is.summary = c(TRUE, rep(FALSE, nrow(forest_data))), # Header row is a summary row
     xlab = "Regression Coefficient (95% CI)",
     zero = 0,
-    # boxsize = 0.2,
+    boxsize = 0.2,
     col = fpColors(box = "blue", 
-                  line = "darkblue", 
+                  line = "lightblue", 
                   summary = "red"),
     txt_gp = fpTxtGp(label = gpar(cex = 0.9), 
                     xlab = gpar(cex = 1.0)),
-    graph.pos = 6, # Position of the graph (4 = after the 4th column)
+    graph.pos = 5, # Position of the graph (4 = after the 4th column)
     colgap = unit(2, "mm"), # Gap between columns
     lineheight = unit(0.7, "cm"), # Height of each row
-    graphwidth = unit(15, "cm") # Width of the graph area
-  ) |> fp_add_lines(h_2 = gpar(lty = 2, columns = 1:5))
+    graphwidth = unit(12, "cm") # Width of the graph area
+  ) |> fp_add_lines(h_2 = gpar(lty = 2, columns = 1:7))
   return(plot)
 }
 
